@@ -1,20 +1,24 @@
-// ── CURSOR ──
+// ── CURSOR & TRAILS ──
 const cursor = document.getElementById('cursor');
 const trail  = document.getElementById('cursor-trail');
-const emojis = ['⭐','🌟','✨','🎈','💫','🎨','🌈','🦋','🌸','🍀'];
+const emojis = ['⭐','✨','✈️','🎈','🦋','🎨','🖍️','🌈'];
 let mx=0, my=0, cx=0, cy=0;
+
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
   cursor.style.left = mx+'px'; cursor.style.top = my+'px';
 });
+
 setInterval(() => {
   cx += (mx-cx)*0.15; cy += (my-cy)*0.15;
   trail.style.left = cx+'px'; trail.style.top = cy+'px';
 }, 16);
 
-// sparkles on click
+// ── CLICK SPARKLES ──
 document.addEventListener('click', e => {
-  for(let i=0;i<6;i++){
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'BUTTON') return;
+
+  for(let i=0; i<6; i++){
     const s = document.createElement('div');
     s.className = 'sparkle';
     s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
@@ -24,111 +28,133 @@ document.addEventListener('click', e => {
     s.style.setProperty('--dy', Math.sin(angle)*dist+'px');
     s.style.left = e.clientX+'px'; s.style.top = e.clientY+'px';
     document.body.appendChild(s);
-    setTimeout(()=>s.remove(), 750);
+    setTimeout(() => s.remove(), 700);
   }
 });
 
-// ── SUN RAYS ──
-const sun = document.getElementById('sun');
-for(let i=0;i<12;i++){
-  const ray = document.createElement('div');
-  ray.className = 'sun-ray';
-  const angle = (360/12)*i;
-  ray.style.cssText = `width:6px;height:40px;top:50%;left:50%;margin-left:-3px;margin-top:-20px;
-    transform:rotate(${angle}deg) translateY(-120%);animation:sunpulse 3s ease-in-out infinite;
-    animation-delay:${i*0.1}s;`;
-  sun.appendChild(ray);
+// ── NAVBAR SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── ACTIVE NAV STATE via IntersectionObserver ──
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
+
+// Map section IDs to nav links for fast lookup
+const sectionLinkMap = {};
+navLinks.forEach(link => {
+  const sectionId = link.getAttribute('data-section');
+  sectionLinkMap[sectionId] = link;
+});
+
+function setActiveLink(id) {
+  navLinks.forEach(l => l.classList.remove('active'));
+  if (sectionLinkMap[id]) {
+    sectionLinkMap[id].classList.add('active');
+  }
 }
 
-// ── NAVBAR SCROLL ──
-window.addEventListener('scroll', ()=>{
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>80);
+// Track which sections are visible and pick the topmost one
+const visibleSections = new Set();
+
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      visibleSections.add(entry.target.id);
+    } else {
+      visibleSections.delete(entry.target.id);
+    }
+  });
+
+  // Activate the section that appears earliest in DOM order (topmost on screen)
+  let topSection = null;
+  sections.forEach(section => {
+    if (visibleSections.has(section.id)) {
+      if (!topSection) topSection = section.id;
+    }
+  });
+
+  if (topSection) setActiveLink(topSection);
+}, {
+  threshold: 0.25,
+  rootMargin: '-60px 0px -20% 0px'
+});
+
+sections.forEach(section => navObserver.observe(section));
+
+// Also update active state on nav link click immediately for snappier feel
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    const id = link.getAttribute('data-section');
+    setActiveLink(id);
+  });
+});
+
+// ── HERO BOUNCE ANIMATION ──
+['bounce-shafa','bounce-kids','bounce-school'].forEach((id,idx) => {
+  const el = document.getElementById(id);
+  el.style.animation = `bounce-letter 2s ease-in-out ${idx*0.3}s infinite`;
 });
 
 // ── SCROLL REVEAL ──
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
       e.target.classList.add('visible');
-      // admission steps special
-      if(e.target.classList.contains('adm-step')) e.target.classList.add('visible');
+      if(e.target.classList.contains('section-title') && !e.target.classList.contains('wiggle-text')) {
+        const text = e.target.innerHTML;
+        e.target.classList.add('wiggle-text');
+        e.target.innerHTML = text.split('').map(ch => ch===' '?' ':`<span>${ch}</span>`).join('');
+      }
     }
   });
-},{threshold:0.15});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.adm-step').forEach(el=>observer.observe(el));
+}, {threshold: 0.15});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── STAGGERED HERO BOUNCE ──
-['bounce-sunny','bounce-bliss','bounce-school'].forEach((id,idx)=>{
-  const el = document.getElementById(id);
-  el.style.display='inline-block';
-  el.style.animation=`bounce-letter 1.8s ease-in-out ${idx*0.3}s infinite`;
-});
-
-// ── COUNT-UP ──
-const countEls = document.querySelectorAll('[data-target]');
-const countObserver = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const el = e.target;
-      const target = +el.dataset.target;
-      const suffix = target===98?'%':'+';
-      let current = 0;
-      const step = Math.ceil(target/60);
-      const timer = setInterval(()=>{
-        current = Math.min(current+step, target);
-        el.textContent = current+suffix;
-        if(current>=target) clearInterval(timer);
-      },25);
-      countObserver.unobserve(el);
-    }
-  });
-},{threshold:0.5});
-countEls.forEach(el=>countObserver.observe(el));
-
-// ── CONFETTI ──
+// ── CONFETTI & FORM ──
 function launchConfetti(){
-  const colors=['var(--cyan)','var(--green)','var(--yellow)','var(--orange)','var(--red)','#fff'];
-  for(let i=0;i<60;i++){
-    const c=document.createElement('div');
-    c.className='confetti-piece';
-    c.style.cssText=`
-      left:${Math.random()*100}vw;
-      top:${-10+Math.random()*-10}px;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      width:${6+Math.random()*10}px;
-      height:${6+Math.random()*10}px;
-      border-radius:${Math.random()>0.5?'50%':'2px'};
-      animation-duration:${1.5+Math.random()*2}s;
-      animation-delay:${Math.random()*0.5}s;
-    `;
+  const colors=['var(--sky)','var(--lime)','var(--yellow)','var(--pink)','var(--purple)'];
+  for(let i=0; i<80; i++){
+    const c = document.createElement('div');
+    c.style.position = 'fixed';
+    c.style.zIndex = '10001';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.top = -20 + 'px';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.width = (6+Math.random()*10) + 'px';
+    c.style.height = (6+Math.random()*10) + 'px';
+    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    c.style.boxShadow = `0 0 10px ${c.style.background}`;
+
+    const duration = 1.5 + Math.random()*2;
+    c.style.transition = `transform ${duration}s linear, opacity ${duration}s ease-in`;
+
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(), 3000);
+    c.getBoundingClientRect();
+
+    c.style.transform = `translateY(120vh) rotate(${Math.random()*720}deg)`;
+    c.style.opacity = '0';
+
+    setTimeout(() => c.remove(), duration * 1000);
   }
-  const el = document.getElementById('fun-emoji');
-  const seq=['🎉','🎊','🌈','🎆','⭐','🦄','🎠','🌟'];
-  let idx=0;
-  const t=setInterval(()=>{ el.textContent=seq[idx%seq.length]; idx++; if(idx>=seq.length*2) clearInterval(t); },150);
 }
 
-// ── FORM SUBMIT ──
-function submitForm(){
-  const n=document.getElementById('f-name').value.trim();
-  const p=document.getElementById('f-phone').value.trim();
-  if(!n||!p){ alert('Please fill in at least your name and phone number! 📞'); return; }
+function submitForm() {
+  const n = document.getElementById('f-name').value.trim();
+  const p = document.getElementById('f-phone').value.trim();
+  if(!n || !p) {
+    alert('Please fill in your name and phone number! 📞');
+    return;
+  }
   launchConfetti();
-  setTimeout(()=>{ document.getElementById('modal').classList.add('open'); },400);
-  // clear
-  ['f-name','f-phone','f-email','f-child','f-msg'].forEach(id=>{ document.getElementById(id).value=''; });
-  document.getElementById('f-age').selectedIndex=0;
+  setTimeout(() => { document.getElementById('modal').classList.add('open'); }, 500);
+
+  ['f-name','f-phone','f-child'].forEach(id => { document.getElementById(id).value=''; });
+  document.getElementById('f-age').selectedIndex = 0;
 }
 
-function closeModal(e){ if(e)e.preventDefault(); document.getElementById('modal').classList.remove('open'); }
-document.getElementById('modal-close').onclick = closeModal;
-document.getElementById('modal').addEventListener('click', e=>{ if(e.target===document.getElementById('modal')) closeModal(); });
-
-// ── WIGGLE SECTION TITLES ──
-document.querySelectorAll('.section-title').forEach(el=>{
-  const text=el.innerHTML;
-  el.classList.add('wiggle-text');
-  el.innerHTML=text.split('').map(ch=>ch===' '?' ':`<span>${ch}</span>`).join('');
-});
+function closeModal(e) {
+  if(e) e.preventDefault();
+  document.getElementById('modal').classList.remove('open');
+}
