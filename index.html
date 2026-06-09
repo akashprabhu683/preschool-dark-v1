@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shafa Kids Preschool ✨</title>
+  <title>Luna Stars Preschool ✨</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- CURSOR -->
+<!-- CURSOR (desktop only) -->
 <div id="cursor"></div>
 <div id="cursor-trail"></div>
 
@@ -27,9 +27,9 @@
   </div>
 </div>
 
-<!-- NAVBAR -->
+<!-- NAVBAR (desktop) -->
 <nav id="navbar">
-  <div class="nav-logo">🌙 Shafa Kids</div>
+  <div class="nav-logo">🌙 Luna Stars</div>
   <div class="nav-links hidden md:flex" id="nav-links">
     <a href="#hero" class="nav-link" data-section="hero">Home</a>
     <a href="#about" class="nav-link" data-section="about">About</a>
@@ -40,6 +40,32 @@
     <a href="#admission" class="nav-link nav-enroll" data-section="admission">✨ Enroll</a>
   </div>
 </nav>
+
+<!-- MOBILE FLOATING NAV -->
+<div class="mobile-nav-wrapper" id="mobileNavWrapper">
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+  <!-- Menu items (rendered above button in DOM, positioned via CSS) -->
+  <div class="mobile-menu-items" id="mobileMenuItems">
+    <a href="#hero"      class="mobile-menu-item" data-section="hero"      data-index="0"><span class="mmi-icon">🏠</span><span class="mmi-label">Home</span></a>
+    <a href="#about"     class="mobile-menu-item" data-section="about"     data-index="1"><span class="mmi-icon">⭐</span><span class="mmi-label">About</span></a>
+    <a href="#programs"  class="mobile-menu-item" data-section="programs"  data-index="2"><span class="mmi-icon">🎒</span><span class="mmi-label">Programs</span></a>
+    <a href="#activities"class="mobile-menu-item" data-section="activities"data-index="3"><span class="mmi-icon">🎪</span><span class="mmi-label">Activities</span></a>
+    <a href="#reviews"   class="mobile-menu-item" data-section="reviews"   data-index="4"><span class="mmi-icon">💬</span><span class="mmi-label">Reviews</span></a>
+    <a href="#contact"   class="mobile-menu-item" data-section="contact"   data-index="5"><span class="mmi-icon">📞</span><span class="mmi-label">Contact</span></a>
+    <a href="#admission" class="mobile-menu-item mobile-menu-enroll" data-section="admission" data-index="6"><span class="mmi-icon">✨</span><span class="mmi-label">Enroll Now</span></a>
+  </div>
+
+  <!-- Floating circle button -->
+  <div class="mobile-nav-btn" id="mobileNavBtn">
+    <div class="mnb-icon" id="mnbIcon">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </div>
+  </div>
+  <div class="mobile-nav-label">Navigation</div>
+</div>
 
 <!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
@@ -54,8 +80,8 @@
 
   <div class="container mx-auto px-6 text-center relative z-10">
     <h1 class="hero-title">
-      <span class="word-shafa" id="bounce-shafa">Shafa</span>
-      <span class="word-kids" id="bounce-kids">Kids</span><br>
+      <span class="word-shafa" id="bounce-shafa">Luna</span>
+      <span class="word-kids" id="bounce-kids">Stars</span><br>
       <span class="word-school" id="bounce-school">Pre School</span>
     </h1>
     <p class="hero-sub">Step into a magical learning garden at dusk 🌙<br>Safe, creative, and joyful education for little dreamers!</p>
@@ -165,9 +191,9 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="google-review-card reveal">
         <div class="flex items-center mb-3">
-          <div class="review-avatar" style="background-color: #EA4335;">N</div>
+          <div class="review-avatar" style="background-color: #EA4335;">P</div>
           <div class="ml-3">
-            <div class="font-bold text-gray-800">I.S. Neeraja</div>
+            <div class="font-bold text-gray-800">Priya Ramesh</div>
             <div class="text-xs text-gray-500">Google Review</div>
           </div>
           <div class="ml-auto">
@@ -178,17 +204,17 @@
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
             <path fill="none" d="M0 0h48v48H0z"/>
           </svg>
-        </div>
+          </div>
         </div>
         <div class="text-yellow-400 text-sm mb-2">★★★★★</div>
-        <p class="text-sm font-medium text-gray-600">"I had a great experience with Shafa Kids World International Pre School. The teachers are subject matter experts and the fees are reasonable."</p>
+        <p class="text-sm font-medium text-gray-600">"Luna Stars is absolutely magical! The teachers are so dedicated and my daughter looks forward to school every single day. Best decision we ever made."</p>
       </div>
 
       <div class="google-review-card reveal" style="transition-delay:0.1s;">
         <div class="flex items-center mb-3">
-          <div class="review-avatar" style="background-color: #34A853;">M</div>
+          <div class="review-avatar" style="background-color: #34A853;">A</div>
           <div class="ml-3">
-            <div class="font-bold text-gray-800">Mayuri</div>
+            <div class="font-bold text-gray-800">Arun Krishnan</div>
             <div class="text-xs text-gray-500">Google Review</div>
           </div>
           <div class="ml-auto">
@@ -199,17 +225,17 @@
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
             <path fill="none" d="M0 0h48v48H0z"/>
           </svg>
-        </div>
+          </div>
         </div>
         <div class="text-yellow-400 text-sm mb-2">★★★★★</div>
-        <p class="text-sm font-medium text-gray-600">"Excellent choice for early childhood education! The facilities are clean and well-maintained, and they have adequate security measures in place."</p>
+        <p class="text-sm font-medium text-gray-600">"Excellent early childhood environment. The STEM activities and creative curriculum are well beyond what I expected. My son's confidence has grown tremendously."</p>
       </div>
 
       <div class="google-review-card reveal" style="transition-delay:0.2s;">
         <div class="flex items-center mb-3">
-          <div class="review-avatar" style="background-color: #FBBC05;">S</div>
+          <div class="review-avatar" style="background-color: #FBBC05;">D</div>
           <div class="ml-3">
-            <div class="font-bold text-gray-800">Sujitha</div>
+            <div class="font-bold text-gray-800">Divya Menon</div>
             <div class="text-xs text-gray-500">Google Review</div>
           </div>
           <div class="ml-auto">
@@ -223,17 +249,17 @@
           </div>
         </div>
         <div class="text-yellow-400 text-sm mb-2">★★★★★</div>
-        <p class="text-sm font-medium text-gray-600">"A wonderful school with truly caring teachers. My child has grown so much since joining. Highly recommend Shafa Kids to every parent in Avadi!"</p>
+        <p class="text-sm font-medium text-gray-600">"Warm, safe, and genuinely caring. The staff remember every child's little quirks and celebrate them. Luna Stars is more than a school — it's a second home."</p>
       </div>
     </div>
 
     <!-- Overall Rating Badge -->
     <div class="text-center" style="margin-top:48px;">
       <div style="display:inline-flex; align-items:center; gap:14px; background:rgba(30,41,59,0.8); border:2px solid var(--yellow); border-radius:50px; padding:14px 32px; box-shadow:0 0 20px rgba(251,191,36,0.25);">
-        <span style="font-size:2.2rem; font-family:'Fredoka One',cursive; color:var(--yellow);">4.8</span>
+        <span style="font-size:2.2rem; font-family:'Fredoka One',cursive; color:var(--yellow);">4.9</span>
         <div style="text-align:left;">
           <div style="color:var(--yellow); font-size:1.2rem; letter-spacing:2px;">★★★★★</div>
-          <div style="color:#94a3b8; font-size:0.85rem; font-weight:600;">80+ Reviews on Google</div>
+          <div style="color:#94a3b8; font-size:0.85rem; font-weight:600;">120+ Reviews on Google</div>
         </div>
         <svg width="28" height="28" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style="opacity:0.9;">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -256,15 +282,15 @@
       <div class="twilight-card contact-card reveal" style="border-color:var(--sky);">
         <div class="contact-card-icon">📍</div>
         <h3 style="color:var(--sky); font-size:1.3rem;">Visit Us</h3>
-        <p>No. 2, Sathyavani Muthu Street<br>Gandhi Nagar, Avadi<br>Chennai – 600 054</p>
-        <a href="https://maps.google.com/?q=Shafa+Kids+World+Avadi+Chennai" target="_blank" class="contact-link" style="color:var(--sky);">📌 Get Directions</a>
+        <p>42, Maple Blossom Road<br>Greenfield Nagar, Sector 7<br>Springfield – 560 001</p>
+        <a href="https://maps.google.com/?q=Luna+Stars+Preschool" target="_blank" class="contact-link" style="color:var(--sky);">📌 Get Directions</a>
       </div>
       <div class="twilight-card contact-card reveal" style="border-color:var(--yellow); transition-delay:0.1s;">
         <div class="contact-card-icon">📞</div>
         <h3 style="color:var(--yellow); font-size:1.3rem;">Call Us</h3>
         <p>
-          <a href="tel:+919962247865" class="contact-link" style="color:var(--yellow);">+91 99622 47865</a><br>
-          <a href="tel:+917550081363" class="contact-link" style="color:var(--yellow);">+91 75500 81363</a>
+          <a href="tel:+911234567890" class="contact-link" style="color:var(--yellow);">+91 12345 67890</a><br>
+          <a href="tel:+919876543210" class="contact-link" style="color:var(--yellow);">+91 98765 43210</a>
         </p>
         <p style="margin-top:8px; font-size:0.9rem; color:#94a3b8;">Mon–Sat: 9:00 AM – 5:00 PM</p>
       </div>
@@ -272,7 +298,7 @@
         <div class="contact-card-icon">✉️</div>
         <h3 style="color:var(--pink); font-size:1.3rem;">Email Us</h3>
         <p>
-          <a href="mailto:shafakidsworld@gmail.com" class="contact-link" style="color:var(--pink);">shafakidsworld@gmail.com</a>
+          <a href="mailto:hello@lunastarspreschool.com" class="contact-link" style="color:var(--pink);">hello@lunastarspreschool.com</a>
         </p>
         <p style="margin-top:8px; font-size:0.9rem; color:#94a3b8;">We reply within 24 hours</p>
       </div>
@@ -287,7 +313,7 @@
       <div class="reveal">
         <h2 class="section-title" style="color:var(--lime); text-align:left;">🚀 Join the Adventure!</h2>
         <p style="font-size:1.2rem; color:#cbd5e1; margin-bottom:30px;">
-          Enrolling your child at Shafa Kids is simple, transparent, and exciting! Fill out our easy admission form, and our team will guide you through the next steps.
+          Enrolling your child at Luna Stars is simple, transparent, and exciting! Fill out our easy admission form, and our team will guide you through the next steps.
         </p>
         <ul style="list-style:none; font-size:1.1rem; line-height:2.5; color:var(--white);">
           <li>✅ <strong>Step 1:</strong> Submit the form</li>
@@ -320,16 +346,16 @@
 <footer id="footer">
   <div class="footer-top">
     <div class="footer-brand">
-      <h2 class="footer-logo">🌙 Shafa Kids Preschool</h2>
+      <h2 class="footer-logo">🌙 Luna Stars Preschool</h2>
       <p class="footer-tagline">A Magical Learning Garden at Dusk.</p>
       <p class="footer-desc">
-        Established in 2022, Shafa Kids World International Pre-School is Avadi's most beloved early childhood learning centre. We nurture children aged 2–6 years through a blend of creative play, academic foundations, and heartfelt care — helping every little dreamer grow into a confident, curious learner.
+        Established in 2020, Luna Stars International Pre-School is Springfield's most beloved early childhood learning centre. We nurture children aged 2–6 years through a blend of creative play, academic foundations, and heartfelt care — helping every little dreamer grow into a confident, curious learner.
       </p>
       <div class="footer-social">
-        <a href="https://www.facebook.com/ShafaKidsWorld/" target="_blank" class="social-btn" style="--sc:#1877F2;" title="Facebook">📘</a>
-        <a href="https://www.instagram.com/shafakidsworld/" target="_blank" class="social-btn" style="--sc:#E1306C;" title="Instagram">📸</a>
-        <a href="http://www.youtube.com/@ShafaKidsWorldInternationalPre" target="_blank" class="social-btn" style="--sc:#FF0000;" title="YouTube">▶️</a>
-        <a href="https://www.linkedin.com/company/shafa-kids-world-shafa-academy/" target="_blank" class="social-btn" style="--sc:#0A66C2;" title="LinkedIn">💼</a>
+        <a href="#" target="_blank" class="social-btn" title="Facebook">📘</a>
+        <a href="#" target="_blank" class="social-btn" title="Instagram">📸</a>
+        <a href="#" target="_blank" class="social-btn" title="YouTube">▶️</a>
+        <a href="#" target="_blank" class="social-btn" title="LinkedIn">💼</a>
       </div>
     </div>
 
@@ -364,18 +390,18 @@
       <ul class="footer-contact-list">
         <li>
           <span class="fci">📍</span>
-          <span>No. 2, Sathyavani Muthu St,<br>Gandhi Nagar, Avadi,<br>Chennai – 600 054</span>
+          <span>42, Maple Blossom Road,<br>Greenfield Nagar, Sector 7,<br>Springfield – 560 001</span>
         </li>
         <li>
           <span class="fci">📞</span>
           <span>
-            <a href="tel:+919962247865">+91 99622 47865</a><br>
-            <a href="tel:+917550081363">+91 75500 81363</a>
+            <a href="tel:+911234567890">+91 12345 67890</a><br>
+            <a href="tel:+919876543210">+91 98765 43210</a>
           </span>
         </li>
         <li>
           <span class="fci">✉️</span>
-          <a href="mailto:shafakidsworld@gmail.com">shafakidsworld@gmail.com</a>
+          <a href="mailto:hello@lunastarspreschool.com">hello@lunastarspreschool.com</a>
         </li>
         <li>
           <span class="fci">🕘</span>
@@ -386,13 +412,13 @@
   </div>
 
   <div class="footer-bottom">
-    <p>© 2026 Shafa Kids World International Pre-School, Avadi, Chennai. All rights reserved.</p>
+    <p>© 2026 Luna Stars International Pre-School, Springfield. All rights reserved.</p>
     <p style="margin-top:6px; font-size:0.8rem; color:#475569;">Built with ✨ for little dreamers everywhere.</p>
   </div>
 </footer>
 
 <!-- WHATSAPP FLOATING BUTTON -->
-<a href="https://wa.me/919962247865?text=Hello%20Shafa%20Kids!%20I%20am%20interested%20in%20enrolling%20my%20child.%20Please%20share%20more%20details." 
+<a href="https://wa.me/911234567890?text=Hello%20Luna%20Stars!%20I%20am%20interested%20in%20enrolling%20my%20child.%20Please%20share%20more%20details." 
    target="_blank" 
    class="whatsapp-fab" 
    title="Chat with us on WhatsApp"
